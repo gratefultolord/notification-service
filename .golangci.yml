@@ -1,0 +1,61 @@
+version: "2"
+linters:
+  enable:
+    - govet
+    - staticcheck
+    - golines
+    - goimports
+    - unused
+    - ineffassign
+    - dupl
+    - errcheck
+    - errorlint
+    - wrapcheck
+    - nilerr
+    - sqlclosecheck
+    - rowserrcheck # error check after rows.Next()
+    - contextcheck
+    - containedctx # don't transfer massive objects through context
+    - noctx # funcs w/o context in API are forbidden
+    - godoclint
+    - misspell
+    - varnamelen 
+    - gosec
+    - bodyclose
+    - forbidigo # fmt.Println is forbidden
+    - testifylint
+
+run:
+  timeout: 3m
+  allow-parallel-runners: true
+  relative-path-mode: gomod
+  tests: true
+
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - goimports
+    - golines
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+        - prefix(github.com/gratefultolord/notification-service)
+      custom-order: true     
+  
+output:
+  formats:
+    text:
+      path: stdout
+      print-linter-name: true
+      print-issued-lines: true
+      colors: true
+    json:
+      path: ./reports/golangci-lint.json
+  path-mode: "relative"
+  sort-order:
+    - severity
+    - file
+  show-stats: true
